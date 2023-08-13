@@ -29,10 +29,10 @@ func (h *MinHeap) Pop() interface{} {
 
 // 使用額外的方法，讓事情變的簡單
 func (h *MinHeap) PushKV(key, value int) {
-	heap.Push(h, KV{key: key, value: value})
+	heap.Push(h, KV{key: key, value: value}) // 熟練可以直接在外面寫這行
 }
 
 func (h *MinHeap) PopValue() int {
-	item := heap.Pop(h).(KV)
+	item := heap.Pop(h).(KV) // 熟練可以直接在外面寫這行
 	return item.value
 }
