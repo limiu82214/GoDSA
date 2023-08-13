@@ -1,15 +1,15 @@
 package minheap
 
 import (
-	"container/heap" // 這行是必需的
+	"container/heap" // 背
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMinHeap(t *testing.T) {
-	minHeap := &MinHeap{}
-	heap.Init(minHeap)
+	minHeap := &MinHeap{} // 背
+	heap.Init(minHeap)    // 背
 
 	values := []int{5, 3, 8, 2, 1, 7, 6, 4}
 	for _, val := range values {
@@ -19,13 +19,15 @@ func TestMinHeap(t *testing.T) {
 	expected := []int{1, 2, 3, 4, 5, 6, 7, 8}
 	var result []int
 	for minHeap.Len() > 0 {
-		val := heap.Pop(minHeap).(int)
+		val := heap.Pop(minHeap).(int) // 記的要斷言
 		result = append(result, val)
 	}
 
 	assert.Equal(t, expected, result, "Heap should be sorted in ascending order")
 }
 
+// O(log n)
+// 如果想要做出不同定義的queue，通常觀注在Less()
 // 實作
 type MinHeap []int
 
