@@ -1,7 +1,9 @@
 package string_test
 
 import (
+	"fmt"
 	"regexp"
+	"sort"
 	"strings"
 	"testing"
 )
@@ -32,3 +34,22 @@ func TestChangeString(t *testing.T) {
 	// fmt.Println(outStr)
 	_ = outStr
 }
+
+func TestRuneSort(t *testing.T) {
+	runes := []rune{'我', '是', '程', '式', '設', '計', '師'}
+	// note rune is unicode and its order is same as ascii
+	sort.Slice(runes, func(i, j int) bool {
+		return runes[i] < runes[j]
+	})
+	fmt.Println(string(runes))
+}
+
+func TestCopySlice(t *testing.T) {
+	original := []int{3, 1, 4, 1, 5, 9, 2, 6, 5}
+	// 複製原始切片
+	copied := make([]int, len(original))
+	copy(copied, original)
+}
+
+// 直接取string的某個字元是byte
+// forrange string是rune
