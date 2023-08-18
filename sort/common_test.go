@@ -1,4 +1,4 @@
-package string_test
+package sort_test
 
 import (
 	"sort"
