@@ -17,7 +17,7 @@ func TestSlidingWindow(t *testing.T) {
 	// }
 
 	nums := []int{}
-	// 簡化版
+	// 不固定大小的
 	l, r := 0, 0
 	for {
 		_ = nums[r] // 對 R 做點推情
@@ -30,4 +30,13 @@ func TestSlidingWindow(t *testing.T) {
 		}
 		r++ // 每次只走R一步
 	}
+
+	// 這是固定window大小的
+	// window := nums[0: windowSize]
+	// for r:= windowSize; r<len(nums); {
+	// 	l = r - windowSize
+	// 	remove nums[r] in window
+	// 	add nums[l] in window
+	// 	ans := optimal(ans, window)
+	// }
 }
