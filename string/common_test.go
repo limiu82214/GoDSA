@@ -51,5 +51,11 @@ func TestCopySlice(t *testing.T) {
 	copy(copied, original)
 }
 
+func TestHasPrefix(t *testing.T) {
+	// func HasPrefix(str, pre string) bool
+	strings.HasPrefix("Gopher", "Go") // true
+}
+
 // 直接取string的某個字元是byte
 // forrange string是rune
+// rune和byte若字是ascii，則是一樣的

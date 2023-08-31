@@ -40,3 +40,4 @@ func findBoundary(arr []bool) int {
 
 	return firstTrue
 }
+
