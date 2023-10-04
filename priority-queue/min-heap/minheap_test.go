@@ -9,6 +9,8 @@ import (
 
 func TestMinHeap(t *testing.T) {
 	minHeap := &MinHeap{} // 背
+	// t := make(MinHeap, 0)
+	// minHeap = &t
 	heap.Init(minHeap)    // 背
 
 	values := []int{5, 3, 8, 2, 1, 7, 6, 4}
@@ -23,6 +25,7 @@ func TestMinHeap(t *testing.T) {
 		result = append(result, val)
 	}
 
+	// (*minHeap)[0] = 1 // 取Top()的
 	assert.Equal(t, expected, result, "Heap should be sorted in ascending order")
 }
 

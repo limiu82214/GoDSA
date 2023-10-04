@@ -1,6 +1,9 @@
 package matrix_test
 
-import "container/list"
+import (
+	"container/list"
+	"fmt"
+)
 
 // 與graph相比，只是把走邊獨立出來
 
@@ -44,4 +47,26 @@ func Mix(matrix [][]int) {
 	}
 
 	BFS(0, 0)
+}
+
+func DFSMatrix(row, col, n int) {
+	if col == n {
+		row, col = row+1, 0
+	}
+	if row == n {
+		return // 走完啦
+	}
+
+	fmt.Printf("Visiting cell at row %d, col %d\n", row, col)
+	// Visiting cell at row 0, col 0
+	// Visiting cell at row 0, col 1
+	// Visiting cell at row 0, col 2
+	// Visiting cell at row 1, col 0
+	// Visiting cell at row 1, col 1
+	// Visiting cell at row 1, col 2
+	// Visiting cell at row 2, col 0
+	// Visiting cell at row 2, col 1
+	// Visiting cell at row 2, col 2
+
+	DFSMatrix(row, col+1, n)
 }

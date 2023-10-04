@@ -7,10 +7,10 @@ func binarySearch(arr []int, target int) int {
 		if arr[mid] == target {
 			return mid
 		}
-		if arr[mid] < target {
-			l = mid + 1 // +1 表示不保留 mid，應該依照題目決定要不要保留 mid，也可以保留在某個地方再捨棄
-		} else {
+		if arr[mid] > target {
 			r = mid - 1 // -1 表示不保留 mid，應該依照題目決定要不要保留 mid，也可以保留在某個地方再捨棄
+		} else {
+			l = mid + 1 // +1 表示不保留 mid，應該依照題目決定要不要保留 mid，也可以保留在某個地方再捨棄
 		}
 	}
 
@@ -40,4 +40,3 @@ func findBoundary(arr []bool) int {
 
 	return firstTrue
 }
-

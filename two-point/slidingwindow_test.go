@@ -16,14 +16,17 @@ func TestSlidingWindow(t *testing.T) {
 	// 	_, _ = l, r
 	// }
 
-	nums := []int{}
+	nums := []int{1, 2, 3, 4, 5, 6}
 	// 不固定大小的
 	l, r := 0, 0
 	for {
-		_ = nums[r] // 對 R 做點推情
+		_ = nums[r] // 對 R 做點推事情
 		// 處理window
+		if true { // 達成目標
+			break
+		}
 
-		for { // 對 L 做點推情
+		for { // 對 L 做點事情
 			_ = nums[l]
 			// 處理window // 這裡不要忘了
 			l++
@@ -32,11 +35,22 @@ func TestSlidingWindow(t *testing.T) {
 	}
 
 	// 這是固定window大小的
-	// window := nums[0: windowSize]
-	// for r:= windowSize; r<len(nums); {
-	// 	l = r - windowSize
-	// 	remove nums[r] in window
-	// 	add nums[l] in window
-	// 	ans := optimal(ans, window)
-	// }
+windowSize := 3
+for i := 0; i < len(nums); i++ {
+	l, r := i-windowSize, i
+	window := nums[l:r]
+	// k=3
+	// r =   0   1   2   3   4
+	// l =  -3  -2  -1   0   1
+
+	// remove[l]
+	window = window[1:]
+	// append[r]
+	window = append(window, nums[r])
+
+	// here is complete window
+	if r+1 >= windowSize {
+		// 此刻 l = -1, r = 2 . window = [1, 2, 3]
+	}
+}
 }
