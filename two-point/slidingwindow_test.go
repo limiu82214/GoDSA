@@ -36,7 +36,7 @@ func TestSlidingWindow(t *testing.T) {
 
 	// 這是固定window大小的
 windowSize := 3
-for i := 0; i < len(nums); i++ {
+for i := windowSize; i < len(nums); i++ {
 	l, r := i-windowSize, i
 	window := nums[l:r]
 	// k=3
