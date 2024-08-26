@@ -1,5 +1,14 @@
 package sort_test
 
+import "testing"
+
+// TestBinarySearch 測試二分搜尋
+func TestBinarySearch(t *testing.T) {
+	t.Log(binarySearch([]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, 5))  // 4
+	t.Log(binarySearch([]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, 10)) // -1
+	t.Log(binarySearch([]int{1, 2, 3, 4, 5, 6, 7, 8, 9}, 0))  // -1
+}
+
 func binarySearch(arr []int, target int) int {
 	l, r := 0, len(arr)-1
 	for l <= r { // 相同index的話也不能跳過
@@ -24,19 +33,52 @@ func binarySearch(arr []int, target int) int {
 	* 每一次改動都要確認: 退出策略
 */
 
-func findBoundary(arr []bool) int {
+// TestMonotonicTrueWithBinayrSearch 測試monotonic 拿第一個True
+func TestMonotonicTrueWithBinayrSearch(t *testing.T) {
+	t.Log(findFirstTrue([]bool{false, false, false, false, false, false, true, true, true, true}))     // 6
+	t.Log(findFirstTrue([]bool{false, false, false, false, false, false, false, false, false, false})) // -1
+}
+
+// findFirstTrue 找到第一個True 適用於 F F F F F T T T T
+func findFirstTrue(arr []bool) int {
 	l, r := 0, len(arr)-1
-	firstTrue := -1
+	firstIdx := -1
+
 	for l <= r {
 		mid := l + (r-l)/2
 		if arr[mid] == true {
-			firstTrue = mid
+			firstIdx = mid // first True
 			r = mid - 1
 		} else {
-			// firstFalse = mid
+			// firstIdx = mid  // first False
 			l = mid + 1
 		}
 	}
 
-	return firstTrue
+	return firstIdx
+}
+
+// TestMonotonicFalseWithBinayrSearch 測試monotonic 拿第一個False
+func TestMonotonicFalseWithBinayrSearch(t *testing.T) {
+	t.Log(findFirstFalse([]bool{true, true, true, true, true, false, false, false, false}))      // 5
+	t.Log(findFirstFalse([]bool{true, true, true, true, true, true, true, true, true}))          // -1
+	t.Log(findFirstFalse([]bool{false, false, false, false, false, false, false, false, false})) // 0
+}
+
+// findFirstFalse 找到第一個False 適用於 T T T T T F F F F
+func findFirstFalse(arr []bool) int {
+	l, r := 0, len(arr)-1
+	firstIdx := -1
+
+	for l <= r {
+		mid := l + (r-l)/2
+		if arr[mid] == false {
+			firstIdx = mid // first False
+			r = mid - 1
+		} else {
+			l = mid + 1
+		}
+	}
+
+	return firstIdx
 }

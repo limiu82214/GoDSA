@@ -2,6 +2,7 @@ package encode_test
 
 import "testing"
 
+// TestTwoDimensional2OneDimensional 是一個將二維陣列轉成一維陣列的範例，在某些時候這樣可以讓可讀性更高，速度更快
 func TestTwoDimensional2OneDimensional(t *testing.T) {
 	twoDimensional2OneDimensional := func(arr map[int]map[int]string) map[int]string {
 		oneDimensional := make(map[int]string, 0)

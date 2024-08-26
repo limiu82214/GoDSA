@@ -37,3 +37,19 @@ func TestCountOnes(t *testing.T) {
 	t.Log(countOnes(1)) // 1
 	t.Log(countOnes(9)) // 2
 }
+
+// TestBinaryPlus 二進位加法，不需要+運算子
+func TestBinaryPlus(t *testing.T) {
+	addFunc := func(a, b int) int {
+		for b != 0 {
+			carry := a & b
+			a = a ^ b
+			b = carry << 1
+		}
+
+		return a
+	}
+
+	t.Log(addFunc(1, 2)) // 3
+	t.Log(addFunc(2, 3)) // 5
+}
