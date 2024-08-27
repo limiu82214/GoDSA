@@ -52,6 +52,14 @@ func TestPowMod(t *testing.T) {
 			// 1. 防止 x 過大
 			// 2. 照下面的推導，不會改變結果
 			// a*b mod c = ((a mod c) * (b mod c)) mod c
+			// 簡單推導，從a*b開始：
+			// a = b = x
+			// x^2 %z = (x%z * x%z) %z = (x%z)^2 %z
+			// a*b 也以看成 x * x * x
+			// x^3 %z = (x%z * x%z * x%z) %z = (x%z)^3 %z
+			// 所以 x^y %z = (x%z)^y %z
+			//
+			// 從上面反推：
 			// x^y %z  = ((x%z) * (x%z) ... (x^z) )%z  (y個x%z)
 			//         = (x%z)^y %z
 			// 所以 x^y %z = (x%z)^y %z
