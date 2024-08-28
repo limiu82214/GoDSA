@@ -63,6 +63,7 @@ func TestPowMod(t *testing.T) {
 			// x^y %z  = ((x%z) * (x%z) ... (x^z) )%z  (y個x%z)
 			//         = (x%z)^y %z
 			// 所以 x^y %z = (x%z)^y %z
+			// -> (x*x)^(y/2) %z = (x*x %z)^(y/2) %z
 		}
 
 		return res
