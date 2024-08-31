@@ -1,11 +1,53 @@
 package trie_test
 
+import (
+	"encoding/json"
+	"testing"
+)
+
 type Trie struct {
 	childSet map[byte]*Trie
 	isEnd    bool
 }
 
-func Constructor() Trie {
+// TestTrie 範例
+func TestTrie(t *testing.T) {
+	trie := NewTrie()
+	trie.Insert("apple")
+	if !trie.Search("apple") {
+		t.Fatal("search apple failed")
+	}
+	PrintTrie(&trie)
+
+	if trie.Search("app") {
+		t.Fatal("search app failed, app is not in trie")
+	}
+
+	if !trie.StartsWith("app") {
+		t.Fatal("start with app failed, start with app is in trie")
+	}
+
+	trie.Insert("app")
+	if !trie.Search("app") {
+		t.Fatal("search app failed")
+	}
+	println("------------")
+
+	trie.Insert("appends")
+	PrintTrie(&trie)
+
+}
+
+func PrintTrie(t *Trie) {
+	b, _ := json.Marshal(t.childSet)
+	println("childSet: ", string(b))
+	for k, v := range t.childSet {
+		println("key: ", string(k))
+		PrintTrie(v)
+	}
+}
+
+func NewTrie() Trie {
 	return Trie{
 		childSet: make(map[byte]*Trie),
 		isEnd:    false,
@@ -18,7 +60,7 @@ func (this *Trie) Insert(word string) {
 		return
 	}
 	if _, ok := this.childSet[word[0]]; !ok {
-		t := Constructor()
+		t := NewTrie()
 		this.childSet[word[0]] = &t
 	}
 

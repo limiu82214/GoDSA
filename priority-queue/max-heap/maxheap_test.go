@@ -7,6 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// 說明看 minHeap
+
 func TestMaxHeap(t *testing.T) {
 	maxHeap := &MaxHeap{}
 	heap.Init(maxHeap)

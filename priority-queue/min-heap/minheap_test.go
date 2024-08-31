@@ -7,11 +7,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// TestMinHeap 範例
 func TestMinHeap(t *testing.T) {
 	minHeap := &MinHeap{} // 背
 	// t := make(MinHeap, 0)
 	// minHeap = &t
-	heap.Init(minHeap)    // 背
+	heap.Init(minHeap) // 背
 
 	values := []int{5, 3, 8, 2, 1, 7, 6, 4}
 	for _, val := range values {
@@ -38,14 +39,19 @@ func (h MinHeap) Len() int           { return len(h) }
 func (h MinHeap) Less(i, j int) bool { return h[i] < h[j] }
 func (h MinHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
 
+// Push O(log n)
+// golang 會在你Push之後做上浮的算法
 func (h *MinHeap) Push(x interface{}) {
 	*h = append(*h, x.(int))
 }
 
+// Pop O(1) + O(log n)
+// golang 會先將根元素與最後一個元素交換，然後呼叫Pop()，最後做下沉的算法
 func (h *MinHeap) Pop() interface{} {
 	old := *h
 	n := len(old)
 	x := old[n-1]
 	*h = old[:n-1]
+
 	return x
 }

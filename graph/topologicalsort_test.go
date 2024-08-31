@@ -9,14 +9,16 @@ import (
 // getSampleGraph 回傳一個測試用的圖
 //
 // 5 -> 2 -> 3
-// |    |
-// 4 -> 0 -> 1
+// ↓         |
+// 0        /
+// ↑      ↙
+// 4 -> 1
 func getSampleGraph() map[int][]int {
 	return map[int][]int{
-		5: {2, 0},
-		4: {0, 1},
-		2: {3},
-		3: {1},
+		5: {2, 0}, // 5 -> 2, 5 -> 0
+		4: {0, 1}, // 4 -> 0, 4 -> 1
+		2: {3},    // 2 -> 3
+		3: {1},    // 3 -> 1
 		1: {},
 		0: {},
 	}
@@ -27,9 +29,17 @@ func TestKahn(t *testing.T) {
 	graph := getSampleGraph()
 	nodes := Kahn(graph)
 	t.Log(nodes)
+
+	if len(nodes) == len(graph) {
+		// 無環
+	} else {
+		// 有環
+	}
 }
 
 // Kahn 範例
+// Kahn's algorithm 是一種尋找有向無環圖(DAG)的拓撲排序的演算法
+// 可以用來判斷圖是否有環 -> 常用於依賴關係的判斷
 func Kahn(graph map[int][]int) []int {
 	// 先算出每個node的入度
 	findIndegree := func(graph map[int][]int) map[int]int {

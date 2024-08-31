@@ -30,6 +30,8 @@ func TestSlidingWindow(t *testing.T) {
 	windowSize := 3
 	window := nums[0:windowSize]
 	// 先依題目算出 window 的內容 => ans
+	// do something with window
+
 	for i := windowSize; i < len(nums); i++ {
 		l, r := i-windowSize, i
 
