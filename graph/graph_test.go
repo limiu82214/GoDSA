@@ -2,6 +2,8 @@ package graph_test
 
 import (
 	"container/list"
+	"log"
+	"testing"
 )
 
 type Node struct {
@@ -9,6 +11,40 @@ type Node struct {
 	neighbors []*Node
 }
 
+// getSampleListGraph 回傳一個測試用的圖
+//
+// 0 - 1 - 3
+// |   |   |
+// 2 - 4 - 5
+func getSampleListGraph() *Node {
+	n0 := &Node{val: 0}
+	n1 := &Node{val: 1}
+	n2 := &Node{val: 2}
+	n3 := &Node{val: 3}
+	n4 := &Node{val: 4}
+	n5 := &Node{val: 5}
+
+	n0.neighbors = []*Node{n1, n2}
+	n1.neighbors = []*Node{n0, n3, n4}
+	n2.neighbors = []*Node{n0, n5}
+	n3.neighbors = []*Node{n1}
+	n4.neighbors = []*Node{n1}
+	n5.neighbors = []*Node{n2}
+
+	return n0
+}
+
+// TestBFSList BFSList範例
+func TestBFSList(t *testing.T) {
+	root := getSampleListGraph()
+	node := BFSList(root, 5)
+
+	if node == nil {
+		t.Fatal("not found")
+	}
+}
+
+// BFSList 範例
 func BFSList(root *Node, target int) *Node {
 	queue := list.New()
 	queue.PushBack(root)
@@ -18,6 +54,7 @@ func BFSList(root *Node, target int) *Node {
 	for queue.Len() > 0 {
 		node := queue.Front().Value.(*Node)
 		queue.Remove(queue.Front())
+		log.Print("visit: ", node.val)
 
 		if node.val == target {
 			return node
@@ -30,12 +67,24 @@ func BFSList(root *Node, target int) *Node {
 
 			visited[n] = true
 			queue.PushBack(n)
+
 		}
 	}
 
 	return nil
 }
 
+// TestBFSListEachLevel BFSListEachLevel範例
+func TestBFSListEachLevel(t *testing.T) {
+	root := getSampleListGraph()
+	node := BFSListEachLevel(root, 5)
+
+	if node == nil {
+		t.Fatal("not found")
+	}
+}
+
+// TestBFSListEachLevel BFSListEachLevel範例
 func BFSListEachLevel(root *Node, target int) *Node {
 	queue := list.New()
 	queue.PushBack(root)
@@ -47,6 +96,7 @@ func BFSListEachLevel(root *Node, target int) *Node {
 		for i := 0; i < l; i++ {
 			node := queue.Front().Value.(*Node)
 			queue.Remove(queue.Front())
+			log.Print(" level: ", level, ", visit: ", node.val)
 
 			if node.val == target {
 				return node
@@ -59,21 +109,46 @@ func BFSListEachLevel(root *Node, target int) *Node {
 
 				visited[n] = true
 				queue.PushBack(n)
+
 			}
 		}
+
 		level++
 	}
 
 	return nil
 }
 
-func BFSSlice(graph [][]int) {
+// TestBFSSlice BFSSlice範例
+// 0 - 1 - 3
+// |   |   |
+// 2 - 4 - 5
+func getSampleSliceGraph() [][]int {
+	return [][]int{
+		{1, 2},
+		{0, 3, 4},
+		{0, 5},
+		{1},
+		{1},
+		{2},
+	}
+}
+
+// TestBFSSlice BFSSlice範例
+func TestBFSSlice(t *testing.T) {
+	graph := getSampleSliceGraph()
+	BFSSlice(graph, 1)
+}
+
+// BFSSlice 範例
+func BFSSlice(graph [][]int, root int) {
 	visited := make(map[int]bool)
-	queue := []int{0}
+	queue := []int{root}
 
 	for len(queue) > 0 {
 		node := queue[0]
 		queue = queue[1:]
+		log.Print("visit: ", node)
 
 		for _, n := range graph[node] {
 			if visited[n] {
@@ -86,7 +161,52 @@ func BFSSlice(graph [][]int) {
 	}
 }
 
-func DFS(root *Node, visited map[*Node]bool, target int) *Node {
+// TestBFSSliceEachLevel BFSSliceEachLevel範例
+func TestBFSSliceEachLevel(t *testing.T) {
+	graph := getSampleSliceGraph()
+	BFSSliceEachLevel(graph, 1)
+}
+
+// BFSSliceEachLevel 範例
+func BFSSliceEachLevel(graph [][]int, root int) {
+	visited := make(map[int]bool)
+	queue := []int{root}
+	level := 0
+
+	for len(queue) > 0 {
+		l := len(queue)
+		for i := 0; i < l; i++ {
+			node := queue[0]
+			queue = queue[1:]
+			log.Print(" level: ", level, ", visit: ", node)
+
+			for _, n := range graph[node] {
+				if visited[n] {
+					continue
+				}
+
+				visited[node] = true
+				queue = append(queue, n)
+			}
+		}
+
+		level++
+	}
+}
+
+// TestDFSList DFSList範例
+func TestDFSList(t *testing.T) {
+	root := getSampleListGraph()
+	node := DFSList(root, map[*Node]bool{}, 5)
+
+	if node == nil {
+		t.Fatal("not found")
+	}
+	log.Print("found: ", node.val)
+}
+
+// DFSList 範例
+func DFSList(root *Node, visited map[*Node]bool, target int) *Node {
 	// 相比於樹，不會有Nil的情況，每個neighbor都會是一個存在的頂點
 	// if root == nil {
 	// 	return nil
@@ -102,22 +222,32 @@ func DFS(root *Node, visited map[*Node]bool, target int) *Node {
 		}
 
 		visited[root] = true
-		DFS(n, visited, target) // 這裡可以判斷返回值，但為了簡單的範例，不寫上去
+		rst := DFSList(n, visited, target)
+		if rst != nil {
+			return rst
+		}
 	}
 
 	return nil
-	// DFS(root, map[*Node]bool{root: true}, target)
 }
 
-func DFSSlice(graph [][]int, visited map[int]bool) {
-	for _, n := range graph[0] {
+// TestDFSSlice DFSSlice範例
+func TestDFSSlice(t *testing.T) {
+	graph := getSampleSliceGraph()
+	DFSSlice(graph, map[int]bool{0: true}, 0)
+}
+
+// DFSSlice 範例
+func DFSSlice(graph [][]int, visited map[int]bool, root int) {
+	log.Print("visit: ", root, ", visited: ", visited)
+	// log.Print("graph: ", graph[root])
+
+	for _, n := range graph[root] {
 		if visited[n] {
 			continue
 		}
 
 		visited[n] = true
-		DFSSlice(graph, visited)
+		DFSSlice(graph, visited, n)
 	}
-
-	// DFS(graph, map[*Node]bool{graph[0]: true}, target)
 }

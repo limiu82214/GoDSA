@@ -3,6 +3,7 @@ package matrix_test
 import (
 	"container/list"
 	"fmt"
+	"testing"
 )
 
 // 與graph相比，只是把走邊獨立出來
@@ -49,6 +50,26 @@ func Mix(matrix [][]int) {
 	BFS(0, 0)
 }
 
+// getSampleMatrix 回傳一個測試用的矩陣
+//
+// 1 2 3
+// 4 5 6
+// 7 8 9
+func getSampleMatrix() [][]int {
+	return [][]int{
+		{1, 2, 3},
+		{4, 5, 6},
+		{7, 8, 9},
+	}
+}
+
+// DFSMatrix 範例
+func TestDFSMatrix(t *testing.T) {
+	matrix := getSampleMatrix()
+	DFSMatrix(0, 0, len(matrix))
+}
+
+// DFSMatrix 範例
 func DFSMatrix(row, col, n int) {
 	if col == n {
 		row, col = row+1, 0

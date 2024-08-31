@@ -9,13 +9,13 @@ package monotonic_test
 //    經典的題目是newspapers
 // 時間複雜度: 將會是 O(feasible * log n)
 
-func findBoundary1(arr []bool) int {
+func findBoundary1(questData []any) int {
 	// 在這個例子中我們假設答案範圍在arr的index中
-	l, r := 0, len(arr)-1
+	l, r := 0, len(questData)-1
 	firstTrue := -1
 	for l <= r {
 		mid := l + (r-l)/2
-		if feasible(arr, mid) {
+		if feasible(questData, mid) {
 			firstTrue = mid
 			r = mid - 1
 		} else {
@@ -26,13 +26,13 @@ func findBoundary1(arr []bool) int {
 	return firstTrue
 }
 
-func findBoundary2(arr []bool) int {
+func findBoundary2(qestData []any) int {
 	// 在這個例子中我們假設答案範圍在0~10000
 	l, r := 0, 100000 // 可以透過一些手段先減少這個範圍
 	firstTrue := -1
 	for l <= r {
 		mid := l + (r-l)/2
-		if feasible(arr, mid) {
+		if feasible(qestData, mid) {
 			firstTrue = mid
 			r = mid - 1
 		} else {
@@ -43,6 +43,6 @@ func findBoundary2(arr []bool) int {
 	return firstTrue
 }
 
-func feasible(arr []bool, mid int) bool {
+func feasible(arr []any, mid int) bool {
 	return arr[mid] == true
 }

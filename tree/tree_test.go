@@ -27,7 +27,6 @@ type Node struct {
 //	  / \
 //	 2   3
 //	/ \ / \
-//
 // 4  5 6  7
 func getSampleTree() *BNode {
 	root := &BNode{val: 1}
