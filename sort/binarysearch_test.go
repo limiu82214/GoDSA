@@ -50,7 +50,7 @@ func findFirstTrue(arr []bool) int {
 			firstIdx = mid // first True
 			r = mid - 1
 		} else {
-			// firstIdx = mid  // first False
+			// firstIdx = mid  // last False
 			l = mid + 1
 		}
 	}
