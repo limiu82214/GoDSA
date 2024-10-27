@@ -139,7 +139,8 @@ func Binary(arr []bool) int {
 
 
 func slicesBinarySearchFunWithBool() {
-	// slices.BinarySearch是 [) 意味著每次處理的時候 L 是包含那個i 而 R 不包含，所以最後的時候 L>=i :命中會等於i，沒命中會大於i (每次處理的時候 L 是包含那個i)
+	// slices.BinarySearch是 [) 意味著每次處理的時候 L 是包含那個i，所以最後的時候 L>=i :L命中時L會等於i，L沒命中時L會等於i+1 (每次處理的時候 L 是包含那個i)
+	//                                             R 是不包含那i，              R< i :L命中時R會等於i，L沒命中時R會等於i+1 (每次處理的時候 R 是不包含那i) (因為就算命中了，也不會提前跳出for)
 
 	// --
 	m := map[bool]int{true: 0, false: 1}
