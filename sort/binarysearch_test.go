@@ -82,3 +82,57 @@ func findFirstFalse(arr []bool) int {
 
 	return firstIdx
 }
+
+// 觀察 L 與 R 的變化
+func Binary(arr []bool) int {
+	l, r := 0, len(arr)-1
+
+	for l <= r {
+		mid := l + (r-l)/2
+		if arr[mid] == false {
+			r = mid - 1 // arr[mid] 是 false 移動R，所以R在找true
+		} else {
+			l = mid + 1 // arr[mid] 是  true 移動L，所以L在找false
+		}
+	}
+	// 一般情況
+	//     [true, true, true, true, true, false, false, false, false]
+	//       ↑L                                                  ↑R
+	//     [true, true, true, true, true, false, false, false, false]
+	//                               ↑R    ↑L
+
+	// 全true
+	//    [true, true, true, true, true, true, true, true, true]
+	//      ↑L                                              ↑R
+	//    [true, true, true, true, true, true, true, true, true]
+	//                                                      ↑R   ↑L
+
+	// 全false
+	//     [false, false, false, false, false, false, false, false, false]
+	//       ↑L                                                       ↑R
+	//     [false, false, false, false, false, false, false, false, false]
+	//  ↑R   ↑L
+
+	fmt.Println(arr)
+	fmt.Print("[")
+	for i := range arr {
+		lc := " "
+		rc := " "
+		if i == l {
+			lc = "L"
+		}
+		if i == r {
+			lc = "R"
+		}
+		if arr[i] == true {
+			fmt.Print(" ", lc, rc, i, " ")
+		} else {
+			fmt.Print("  ", lc, rc, i, " ")
+		}
+	}
+	fmt.Print("]")
+	fmt.Println()
+	fmt.Println("L(找false):", l, ", R(找true):", r)
+
+	return l
+}
