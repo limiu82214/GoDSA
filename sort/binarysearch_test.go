@@ -173,7 +173,7 @@ func slicesBinarySearchFunWithBool() {
 	idx, isFound = slices.BinarySearchFunc(arr, true, func(a, b bool) int {
 		return m[a] - m[b]
 	})
-	fmt.Println("(true->false) find true: []bool{false, false, false, false, false, false, false, false, false}", "isFound:", isFound, "idx:", idx, "因為是index從0開始，所以最後idx是0")
+	fmt.Println("(true->false) find true: []bool{false, false, false, false, false, false, false, false, false}", "isFound:", isFound, "idx:", idx)
 
 	// --
 	m = map[bool]int{false: 0, true: 1}
@@ -192,7 +192,7 @@ func slicesBinarySearchFunWithBool() {
 	idx, isFound = slices.BinarySearchFunc(arr, false, func(a, b bool) int {
 		return m[a] - m[b]
 	})
-	fmt.Println("(false->true) find false: []bool{true, true, true, true, true, true, true, true, true}", "isFound:", isFound, "idx:", idx, "因為是index從0開始，所以最後idx是0")
+	fmt.Println("(false->true) find false: []bool{true, true, true, true, true, true, true, true, true}", "isFound:", isFound, "idx:", idx)
 	idx, isFound = slices.BinarySearchFunc(arr, true, func(a, b bool) int {
 		return m[a] - m[b]
 	})
@@ -215,10 +215,10 @@ func slicesBinarySearchFunWithBool() {
     // (true->false) find false: []bool{true, true, true, true, true, true, true, true, true} isFound: false idx: 9
     // (true->false) find true: []bool{true, true, true, true, true, true, true, true, true} isFound: true idx: 0
     // (true->false) find false: []bool{false, false, false, false, false, false, false, false, false} isFound: true idx: 0
-    // (true->false) find true: []bool{false, false, false, false, false, false, false, false, false} isFound: false idx: 0 因為是index從0開始，所以最後idx是0
+    // (true->false) find true: []bool{false, false, false, false, false, false, false, false, false} isFound: false idx: 0
     // (false->true) find false: []bool{false, false, false, false, false, true, true, true, true} isFound: true idx: 0
     // (false->true) find true: []bool{false, false, false, false, false, true, true, true, true} isFound: true idx: 5
-    // (false->true) find false: []bool{true, true, true, true, true, true, true, true, true} isFound: false idx: 0 因為是index從0開始，所以最後idx是0
+    // (false->true) find false: []bool{true, true, true, true, true, true, true, true, true} isFound: false idx: 0
     // (false->true) find true: []bool{true, true, true, true, true, true, true, true, true} isFound: true idx: 0
     // (false->true) find false: []bool{false, false, false, false, false, false, false, false, false} isFound: true idx: 0
     // (false->true) find true: []bool{false, false, false, false, false, false, false, false, false} isFound: false idx: 9
