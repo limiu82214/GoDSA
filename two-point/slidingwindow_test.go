@@ -35,10 +35,11 @@ func TestSlidingWindow(t *testing.T) {
 	for i := windowSize; i < len(nums); i++ {
 		l, r := i-windowSize, i
 
-		// 在移除左邊的值時做些事情
-		window = window[1:]
 		// 在增加右邊的值時做些事情
 		window = append(window, nums[r])
+		// 在移除左邊的值時做些事情
+		window = window[1:]
+
 
 		// 更新 ans 如果有必要
 
