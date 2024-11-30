@@ -27,24 +27,22 @@ func TestSlidingWindow(t *testing.T) {
 	}
 
 	log.Println("固定window大小的")
-	windowSize := 3
-	window := nums[0:windowSize]
-	// 先依題目算出 window 的內容 => ans
-	// do something with window
-
-	for i := windowSize; i < len(nums); i++ {
-		l, r := i-windowSize, i
-
-		// 在增加右邊的值時做些事情
+    	windowSize := 3
+    	l, r := 0, 0
+    	for r < len(s2) {
+		// R 進入窗口
 		window = append(window, nums[r])
-		// 在移除左邊的值時做些事情
-		window = window[1:]
-
-
-		// 更新 ans 如果有必要
-
-		// 因為index 0-2 會在for 之前先算完，所以這裡只會印出後面的
-		log.Println("l: ", l, "r: ", r)
-		log.Println("fix window: ", window)
+		r++
+		// [l, r)
+	
+		// 長度足夠
+		if r-l >= size {
+	
+		    // 判斷答案, 更新ans 如果有必要
+	
+		    // L 離開窗口
+		    window = window[1:]
+		    l++
+		}
 	}
 }
