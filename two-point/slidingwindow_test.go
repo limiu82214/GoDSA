@@ -9,25 +9,8 @@ func TestSlidingWindow(t *testing.T) {
 	// 基本上同TwoPointer
 
 	nums := []int{1, 2, 3, 4, 5, 6}
-	// 不固定大小的
-	l, r := 0, 0
-	for r < len(nums) {
-		_ = nums[r] // 對 R 做點事情，例如加到window或處理ans
-		// 處理window
-		if true { // 達成目標
-			break
-		}
-
-		for { // 在window還是符合你設定的規則時，對 L 做點事情，例如移除window或處理ans
-			_ = nums[l]
-			// 處理window // 這裡不要忘了
-			l++
-		}
-		r++ // 每次只走R一步
-	}
-
 	log.Println("萬金油版本")
-	l, r = 0, 0
+	l, r := 0, 0
 	for {
 		// X 非法狀態，此時 L 和 R 在同一個位置上
 		// # R 前進
