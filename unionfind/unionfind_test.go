@@ -12,7 +12,7 @@ import (
 // 時間複雜度 Union O(1), Find O(log(n))
 // 可以快速的知道兩個元素是否在同一個集合中
 type UnionFind struct {
-	set map[int]int // key是id，value是parentID
+	fa map[int]int // key是id，value是parentID
 	// key 與 value 相同的話，表示是root
 }
 
@@ -39,20 +39,26 @@ func TestUnionFind(t *testing.T) {
 }
 
 // O(log(n)) n 是圖中的節點數
-func (uf *UnionFind) Find(id int) int {
-	if parentID, exists := uf.set[id]; exists {
-		if parentID != id { // 若不是根，應該往上找到根，這裡用遞迴
-			uf.set[id] = uf.Find(parentID)
-		}
+func (uf *UnionFind) Find(node int) (root int) {
+    // 新節點
+    if _, ok := uf.fa[node]; !ok {
+        uf.fa[node] = node // 獨立節點自己就是parent
+        return node
+    }
 
-		return uf.set[id]
-	}
+    // 自己是parent表示已經是根了
+    if node == uf.fa[node] {
+        return node
+    }
 
-	return id
+    // 把自己指到整個set的根 // 這只是優化
+    uf.fa[node] = uf.Find(uf.fa[node])
+
+    return uf.fa[node]
 }
 
-// O(1)
-func (uf *UnionFind) Union(id, id2 int) {
-	uf.set[uf.Find(id)] = uf.Find(id2) // 把id的根，接到id2的根上
-	// 這裡可以優化，把較深的樹接到較淺的樹上，這樣可以減少Find的時間
+func (uf *UnionFind) Union(n1, n2 int) {
+    // 把兩個根合在一起
+    uf.fa[uf.Find(n1)] = uf.Find(n2)
 }
+
