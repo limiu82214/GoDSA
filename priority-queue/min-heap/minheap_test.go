@@ -55,3 +55,6 @@ func (h *MinHeap) Pop() interface{} {
 
 	return x
 }
+
+// note:
+// 第K大 = size是k的minHeap中的top() -> 比最小還小的數字不影響第k大，只有比最小的數字還大的才影響
