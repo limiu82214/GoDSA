@@ -15,6 +15,16 @@
 
 Golang
 ```go
+    // preSum
     pre := make([]int, len(nums)+1) // +1 因為要讓第一個元素是0
     for i := range nums {pre[i+1] = pre[i] + nums[i]}
+
+    // sufSum
+    suf := make([]int, n+1)
+    for i := range nums {
+        // i 0 1 2 3  // 4
+        // x 3 2 1 0  // 4 
+        x := n-i-1
+        suf[x] = suf[x+1] + nums[x]
+    }
 ```
