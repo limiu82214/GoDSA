@@ -20,7 +20,7 @@ Golang
     for i := range nums {pre[i+1] = pre[i] + nums[i]}
 
     // sufSum
-    suf := make([]int, n+1)
+    suf := make([]int, len(nums)+1)
     for i := range nums {
         // i 0 1 2 3  // 4
         // x 3 2 1 0  // 4 
