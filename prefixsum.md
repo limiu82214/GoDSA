@@ -12,3 +12,9 @@
     * 可以整理成 arr[i][j] = ps[j] - ps[i-1]
     * 這可以讓原本必需走遍所有組合的情況變成只需要走過一次，也就是O(n^2)=>O(n)
     * 注意通常這會用在與Sum有關、然後需要取出或是解析什麼東西的時候。
+
+Golang
+```go
+    pre := make([]int, len(nums)+1) // +1 因為要讓第一個元素是0
+    for i := range nums {pre[i+1] = pre[i] + nums[i]}
+```
