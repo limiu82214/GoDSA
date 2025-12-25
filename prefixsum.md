@@ -19,6 +19,7 @@ Golang
     // pre[i] => sum(num[:i]) // [0 ~ i)
     pre := make([]int, len(nums)+1) // +1 因為要讓第一個元素是0
     for i := range nums {pre[i+1] = pre[i] + nums[i]}
+    for i:=0; i<n; i++ { pre[i+1] = pre[i] * nums[i] }
 
     // sufSum // 務實上只拿來看右邊的總合是多少，很少拿來計算
     // suf[i] => sum(num[i:]) // [i ~ n]
@@ -29,6 +30,7 @@ Golang
         x := len(nums)-i-1
         suf[x] = suf[x+1] + nums[x]
     }
+    for i:=n-1; i>=0; i-- { suf[i] = pre[i+1] + nums[i] }
 
       0, 1, 2, 3  // idx
     [ 1, 2, 3, 4] // nums
