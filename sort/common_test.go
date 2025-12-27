@@ -55,3 +55,10 @@ func TestSortFunc(t *testing.T) {
 	log.Println("slices.SortFunc `b-a`:", numbers)
 
 }
+
+func TestSortArray(t *testing.T) {
+	numbers := [6]int{4, 2, 7, 1, 9, 3}
+	
+	slices.Sort(numbers[:]) // 先轉成slices再排序，因為底層陣列一樣，所以array也會被排序完
+	log.Println("slices.Sort: ", numbers) // 輸出: [1 2 3 4 7 9]
+}
