@@ -94,3 +94,46 @@ func TestLinkListGeneral(t *testing.T) {
 	    return dummy1.Next 
 	}
 }
+
+/*
+反轉
+var pre *ListNode
+cur := head
+for cur != nil {
+	cur.Next, cur, pre = pre, cur.Next, cur
+}
+1>2>3>4>5
+1<2<3<4<5
+        p c
+
+*/
+
+/*
+快慢指針
+for f != nil && f.Next != nil {
+	s, f = s.Next, f.Next.Next
+}
+
+s, f = head, head
+奇數 s: 中點
+1 2 3 4 5
+    s   f
+偶數 s: 右中點
+1 2 3 4 5 6
+      s     f
+- s永遠是中點或後半的head
+- f == nil { even node } 
+→ 操作後半
+
+s, f = dummy, dummy
+奇數 s: 中點
+d 1 2 3 4 5
+      s     f
+偶數 s: 左中點
+d 1 2 3 4 5 6
+      s     f
+- s永遠是中點或前半的tail
+- f != nil { even node }
+→ 用於切鏈表
+
+*/
