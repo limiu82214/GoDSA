@@ -97,6 +97,7 @@ func TestLinkListGeneral(t *testing.T) {
 
 /*
 反轉
+// https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/submissions/?envType=study-plan-v2&envId=leetcode-75
 var pre *ListNode
 cur := head
 for cur != nil {
@@ -109,6 +110,7 @@ for cur != nil {
 */
 
 /*
+// https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/submissions/?envType=study-plan-v2&envId=leetcode-75
 快慢指針
 for f != nil && f.Next != nil {
 	s, f = s.Next, f.Next.Next
