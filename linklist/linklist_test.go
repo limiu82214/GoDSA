@@ -61,3 +61,36 @@ func TestBuiltinLinkedList(t *testing.T) {
 	// log.Println(l.Back().Next().Value.(string)) // panic
 	log.Println(l.Back().Prev().Value.(string)) // 1
 }
+
+// TestLink
+func TestLinkListGeneral(t *testing.T) {
+	// https://leetcode.com/problems/odd-even-linked-list/description
+	// 這個範例很好解釋了 dummy 與 tail的用法 
+	func oddEvenList(head *ListNode) *ListNode {
+	    // 因為dummy的關系，就算head是nil，dummy與tail也會好好的指在dummy上，所以不用判斷head == nil
+	    // if head == nil || head.Next == nil { return head }
+	
+	    // dummy 用來讓loop變優雅，主要是可以去掉如果第一個值是空的情況，有了dummy的話至少都會是dummy。
+	    dummy0, dummy1 := &ListNode{}, &ListNode{}
+	    tail0, tail1 := dummy0, dummy1
+	    // dummy 和 tail 可以指到同一個，新增的時候控制tail增加即可
+	
+	    
+	    i := 0
+	    for cur := head; cur != nil; cur = cur.Next {
+	        i++
+	        if i % 2 == 1 {
+	            tail1.Next, tail1 = cur, cur
+	        } else {
+	            tail0.Next, tail0 = cur, cur
+	        }
+	    }
+	
+	    // 接上
+	    // 因為dummy的關系，tail不會是nil，所以這裡不需要額外的判斷
+	    tail1.Next = dummy0.Next
+	    tail0.Next = nil
+	
+	    return dummy1.Next 
+	}
+}
