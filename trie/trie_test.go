@@ -97,3 +97,62 @@ func (this *Trie) StartsWith(prefix string) bool {
  * param_2 := obj.Search(word);
  * param_3 := obj.StartsWith(prefix);
  */
+
+/*
+//FOR
+type Trie struct {
+    childSet map[rune]*Trie   
+    isEnd bool
+}
+
+
+func Constructor() Trie {
+    return Trie{
+        childSet: make(map[rune]*Trie),
+        isEnd: false,
+    }
+    
+}
+
+
+func (t *Trie) Insert(word string)  {
+    node := t
+    for _, r := range word {
+        if _, ok := node.childSet[r]; !ok {
+            tmp := Constructor()
+            node.childSet[r] = &tmp
+        }
+        node = node.childSet[r]
+    }
+    node.isEnd = true
+    
+}
+
+
+func (t *Trie) Search(word string) bool {
+    node := t
+    for _, r := range word {
+        if _, ok := node.childSet[r]; !ok {
+            return false
+        }
+        node = node.childSet[r]
+    }
+    if node.isEnd {
+        return true
+    }
+    return false
+}
+
+
+
+func (t *Trie) StartsWith(prefix string) bool {
+    node := t
+    for _, r := range prefix {
+        if _, ok := node.childSet[r]; !ok {
+            return false
+        }
+        node = node.childSet[r]
+    }
+    return true
+}
+*////////////////////////////////////
