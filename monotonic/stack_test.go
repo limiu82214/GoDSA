@@ -16,6 +16,7 @@ func TestMonotonicStackSmall2Big(t *testing.T) {
 // InsertIntoStack 將maxH的值依序放入stack
 // MonotonicStack 的一個重要的觀點是，在stack變化的過程。
 // 例如長條圖的值，在代入MonotonicStack時，若遇到一個很小的值，在Pop的時候，可以得知這個值的左右邊界
+// 如果存的是index，就可以知道兩個元素之間的距離關系，甚至可以存struct來存更多的資訊
 func InsertIntoStack(maxH []int) (mstk []int) {
 	mstk = []int{} // (底)小->大(頂) , 存的是 maxH 的 index
 
