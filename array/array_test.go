@@ -35,3 +35,8 @@ func TestMapInit2(t *testing.T) {
 	t.Log(m)
 	// fmt.Println(m) [[false false false false][false false false false] [false false false false] [false false false false]]
 }
+
+
+// 有效刪除中間array的方法
+//arr[t] = arr[n-1]
+//arr = arr[:n-1]
