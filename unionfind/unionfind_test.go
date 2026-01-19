@@ -70,3 +70,34 @@ func (uf *UnionFind) Size(node int) int {
 	root := uf.Find(node)
 	return uf.size[root]
 }
+
+// function 內的寫法，可以更精簡一點
+func test() {
+    root := make(map[int]int)
+    size := make(map[int]int)
+
+    var find func(x int) int
+    find = func(x int) int{
+        if _, ok := root[x]; !ok {
+            root[x] = x
+            size[x] = 1
+        }
+
+        if x != root[x] {
+            root[x] = find(root[x])
+        }
+
+        return root[x]
+    }
+
+    union := func(x, y int) {
+        rx, ry := find(x), find(y)
+        if rx == ry { return }
+        if size[rx] >size[ry] {
+            rx, ry = ry, rx
+        }
+        root[rx] = ry
+        size[ry] += size[rx]
+    }
+
+}
