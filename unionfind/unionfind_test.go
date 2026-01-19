@@ -50,7 +50,9 @@ func (uf *UnionFind) Find(node int) (root int) {
         return node
     }
 
-	uf.fa[node] = uf.Find(uf.fa[node])
+	if uf.fa[node] != node {
+	    uf.fa[node] = uf.Find(uf.fa[node])
+	}
     return uf.fa[node]
 }
 
