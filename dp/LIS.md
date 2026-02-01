@@ -23,36 +23,35 @@ func lengthOfLIS(nums []int) int {
 觀察：  
 - [5, 7], [5, 6] 當遇到 8 的時候，都可以使用，長度變為3。因此相同長度的子序列我們可以只保留尾數最小的。  
 至此，我們可以在每個不同長度下只維護一組子序列  
-- 當新來的一個num，他可以優化某組子序列，進而讓我們可以只保存每個長度下的最優解
-- [2,5,3,7,10,6,18]  
-input num:  2
-0 : [2]
-input num:  5
-0 : [2]
-1 : [2 5]
-input num:  3
-0 : [2]
-1 : [2 3]
-input num:  7
-0 : [2]
-1 : [2 3]
-2 : [2 3 7]
-input num:  10
-0 : [2]
-1 : [2 3]
-2 : [2 3 7]
-3 : [2 3 7 10]
-input num:  6
-0 : [2]
-1 : [2 3]
-2 : [2 3 6]
-3 : [2 3 7 10]
-input num:  18
-0 : [2]
-1 : [2 3]
-2 : [2 3 6]
-3 : [2 3 7 10]
-4 : [2 3 7 10 18]
+- 當新來的一個num，他可以優化某組子序列，進而讓我們可以只保存每個長度下的最優解  
+- [2,5,3,8,10,6,7]  
+input num:  2  
+0 : [2]  
+input num:  5  
+0 : [2]  
+1 : [2 5]  
+input num:  3  
+0 : [2]  
+1 : [2 3]  
+input num:  8  
+0 : [2]  
+1 : [2 3]  
+2 : [2 3 8]  
+input num:  10  
+0 : [2]  
+1 : [2 3]  
+2 : [2 3 8]  
+3 : [2 3 8 10]  
+input num:  6  
+0 : [2]  
+1 : [2 3]  
+2 : [2 3 6]  
+3 : [2 3 8 10]  
+input num:  7  
+0 : [2]  
+1 : [2 3]  
+2 : [2 3 6]  
+3 : [2 3 6 7]  
 維護長度各不同的arr，走向greedy $$O(n^2)$$ 但快於爆力  
 ```go
 func lengthOfLIS(nums []int) int {
@@ -60,11 +59,15 @@ func lengthOfLIS(nums []int) int {
     arrs := make([][]int, 0)
     for _, num := range nums {
         isOptimized := false
-        for _, arr := range arrs {
+        for i, arr := range arrs {
             top := arr[len(arr)-1]
             if top >= num { // 可以優化某組子序列
                 isOptimized = true
-                arr[len(arr)-1] = num
+                ln := len(arr)
+                arr[ln-1] = num
+                if i-1 > 0 {
+                    copy(arr[:ln-1], arrs[i-1][:ln-1])
+                }
                 break
             }
         }
@@ -95,7 +98,6 @@ func lengthOfLIS(nums []int) int {
 
     return ans
 }
-
 
 ```
 
