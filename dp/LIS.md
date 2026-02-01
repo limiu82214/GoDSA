@@ -19,7 +19,10 @@ func lengthOfLIS(nums []int) int {
     return slices.Max(dp)
 }
 ```
-
+[5]  
+[5,7]  
+[5,7,10]  
+當遇到更優的數字應該替換所有arr裡面的對應值，但是觀察後發現不需要
 維護長度各不同的stack，走向greedy $$O(n^2)$$ 但快於爆力
 ```go
 // focus on stacks length
