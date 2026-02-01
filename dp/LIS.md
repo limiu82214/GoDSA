@@ -23,54 +23,48 @@ func lengthOfLIS(nums []int) int {
 觀察：  
 - [5, 7], [5, 6] 當遇到 8 的時候，都可以使用，長度變為3。因此相同長度的子序列我們可以只保留尾數最小的。  
 至此，我們可以在每個不同長度下只維護一組子序列  
-- 當新來的一個num，他可以優化某組子序列，而其他長度更長的子序列都可以因此優化
+- 當新來的一個num，他可以優化某組子序列，進而讓我們可以只保存每個長度下的最優解
 - [2,5,3,7,10,6,18]  
-input num:  2  
-0 : [2]  
-input num:  5  
-0 : [2]  
-1 : [2 5]  
-input num:  3  
-0 : [2]  
-1 : [2 3]  
-input num:  7  
-0 : [2]  
-1 : [2 3]  
-2 : [2 3 7]  
-input num:  10  
-0 : [2]  
-1 : [2 3]  
-2 : [2 3 7]  
-3 : [2 3 7 10]  
-input num:  6  
-0 : [2]  
-1 : [2 3]  
-2 : [2 3 6]  
-3 : [2 3 6 10]  
-input num:  18  
-0 : [2]  
-1 : [2 3]  
-2 : [2 3 6]  
-3 : [2 3 6 10]  
-4 : [2 3 6 10 18]  
-當遇到更優的數字應該替換所有arr裡面的對應值，但是觀察後發現不需要  
-維護長度各不同的stack，走向greedy $$O(n^2)$$ 但快於爆力  
+input num:  2
+0 : [2]
+input num:  5
+0 : [2]
+1 : [2 5]
+input num:  3
+0 : [2]
+1 : [2 3]
+input num:  7
+0 : [2]
+1 : [2 3]
+2 : [2 3 7]
+input num:  10
+0 : [2]
+1 : [2 3]
+2 : [2 3 7]
+3 : [2 3 7 10]
+input num:  6
+0 : [2]
+1 : [2 3]
+2 : [2 3 6]
+3 : [2 3 7 10]
+input num:  18
+0 : [2]
+1 : [2 3]
+2 : [2 3 6]
+3 : [2 3 7 10]
+4 : [2 3 7 10 18]
+維護長度各不同的arr，走向greedy $$O(n^2)$$ 但快於爆力  
 ```go
 func lengthOfLIS(nums []int) int {
     // 維護不同長度的最長子序列
     arrs := make([][]int, 0)
     for _, num := range nums {
         isOptimized := false
-        for i, arr := range arrs {
+        for _, arr := range arrs {
             top := arr[len(arr)-1]
             if top >= num { // 可以優化某組子序列
                 isOptimized = true
-                ln := len(arr)
-                arr[ln-1] = num
-                // 其他更長的子序列因此可以利用優化後的這組子序列
-                for j:=i+1; j<len(arrs); j++ {
-                    copy(arrs[j][:ln], arr[:ln])
-                }
+                arr[len(arr)-1] = num
                 break
             }
         }
@@ -102,9 +96,10 @@ func lengthOfLIS(nums []int) int {
     return ans
 }
 
+
 ```
 
-其實只需要觀注最後一個數字，優化後面更長子序列的內容可以省略，並因此只需要維護arrs的最後一個數字  
+其實只需要觀注最後一個數字，並因此只需要維護arrs的最後一個數字  
 (greedy $$O(n^2)$$)  
 ```go
 func lengthOfLIS(nums []int) int {
